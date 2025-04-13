@@ -1,12 +1,19 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\AuthController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
-Route::get('/hello', function () {
-    return ['message' => 'Hello from API route!'];
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+
+
+Route::group(['middleware' => 'auth:api'], function () {
+
+    Route::get('/getUsers', function () {
+        return response()->json(['users' => '']);
+    });
+
+    Route::post('/logout', [AuthController::class, 'logout']);
+
 });
