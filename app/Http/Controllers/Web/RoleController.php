@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,12 +12,13 @@ class RoleController extends Controller
     public function index()
     {
         $roles = Role::with('permissions')->get();
-        return send_response('Roles fetched successfully.', $roles);
+        return view('roles.index', compact('roles'));
     }
 
     public function create()
     {
-        //
+        $permissions = Permission::all();
+        return view('roles.create', compact('permissions'));
     }
 
     public function store(Request $request)
@@ -30,32 +31,43 @@ class RoleController extends Controller
         $role = Role::create(['name' => $request->name]);
         $role->syncPermissions($request->permissions ?? []);
 
-        return send_response('Role created successfully.', $role->load('permissions'), 201);
+        return redirect()->route('roles.index')->with('success', 'Role created successfully.');
     }
 
     public function show(string $id)
     {
-        $role = Role::with('permissions')->findOrFail($id);
-        return send_response('Role retrieved successfully.', $role);
+        return redirect()->route('roles.index'); // Not used, redirect to index
     }
 
     public function edit(string $id)
     {
-        //
+        $role = Role::findOrFail($id);
+        $permissions = Permission::all();
+        $rolePermissions = $role->permissions->pluck('id')->toArray();
+
+        return view('roles.edit', compact('role', 'permissions', 'rolePermissions'));
     }
 
     public function update(Request $request, string $id)
     {
         $role = Role::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|unique:roles,name,' . $role->id,
+            'permissions' => 'array'
+        ]);
+
         $role->update(['name' => $request->name]);
         $role->syncPermissions($request->permissions ?? []);
 
-        return send_response('Role updated successfully.', $role->load('permissions'));
+        return redirect()->route('roles.index')->with('success', 'Role updated successfully.');
     }
 
     public function destroy(string $id)
     {
-        Role::findOrFail($id)->delete();
-        return send_response('Role deleted successfully.');
+        $role = Role::findOrFail($id);
+        $role->delete();
+
+        return redirect()->route('roles.index')->with('success', 'Role deleted successfully.');
     }
 }

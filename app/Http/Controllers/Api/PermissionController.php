@@ -13,8 +13,8 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return response()->json(Permission::all());
-
+        $permissions = Permission::all();
+        return send_response('Permissions fetched successfully.', $permissions);
     }
 
     /**
@@ -32,7 +32,8 @@ class PermissionController extends Controller
     {
         $request->validate(['name' => 'required|unique:permissions,name']);
         $permission = Permission::create(['name' => $request->name]);
-        return response()->json($permission, 201);
+    
+        return send_response('Permission created successfully.', $permission, 201);
     }
 
     /**
@@ -40,8 +41,8 @@ class PermissionController extends Controller
      */
     public function show(string $id)
     {
-        return response()->json(Permission::findOrFail($id));
-
+        $permission = Permission::findOrFail($id);
+        return send_response('Permission retrieved successfully.', $permission);
     }
 
     /**
@@ -59,7 +60,7 @@ class PermissionController extends Controller
     {
         $permission = Permission::findOrFail($id);
         $permission->update(['name' => $request->name]);
-        return response()->json($permission);
+        return send_response('Permission updated!', $permission);
     }
 
     /**
@@ -68,6 +69,6 @@ class PermissionController extends Controller
     public function destroy(string $id)
     {
         Permission::findOrFail($id)->delete();
-        return response()->json(['message' => 'Permission deleted.']);
+        return send_response('Permission deleted.');
     }
 }
