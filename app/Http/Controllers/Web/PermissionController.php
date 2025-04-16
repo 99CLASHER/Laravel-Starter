@@ -32,7 +32,7 @@ class PermissionController extends Controller
 
     public function show(string $id)
     {
-        return redirect()->route('permissions.index'); // Optional, or you can show details
+        return redirect()->route('permissions.index'); 
     }
 
     public function edit(string $id)

@@ -36,7 +36,7 @@ class RoleController extends Controller
 
     public function show(string $id)
     {
-        return redirect()->route('roles.index'); // Not used, redirect to index
+        return redirect()->route('roles.index'); 
     }
 
     public function edit(string $id)
