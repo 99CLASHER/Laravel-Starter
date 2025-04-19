@@ -10,7 +10,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 
 
-Route::group(['middleware' => 'auth:api'], function () {
+Route::group(['middleware' => 'auth:api', 'as' => 'api.'], function () {
 
     Route::apiResource('roles', RoleController::class);
     Route::apiResource('permissions', PermissionController::class);
