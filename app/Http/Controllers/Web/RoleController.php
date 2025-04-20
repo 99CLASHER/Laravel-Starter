@@ -29,14 +29,15 @@ class RoleController extends Controller
         ]);
 
         $role = Role::create(['name' => $request->name]);
-        $role->syncPermissions($request->permissions ?? []);
+        $permissionNames = Permission::whereIn('id', $request->permissions ?? [])->pluck('name')->toArray();
+        $role->syncPermissions($permissionNames);
 
         return redirect()->route('roles.index')->with('success', 'Role created successfully.');
     }
 
     public function show(string $id)
     {
-        return redirect()->route('roles.index'); 
+        return redirect()->route('roles.index');
     }
 
     public function edit(string $id)
@@ -58,7 +59,8 @@ class RoleController extends Controller
         ]);
 
         $role->update(['name' => $request->name]);
-        $role->syncPermissions($request->permissions ?? []);
+        $permissionNames = Permission::whereIn('id', $request->permissions ?? [])->pluck('name')->toArray();
+        $role->syncPermissions($permissionNames);
 
         return redirect()->route('roles.index')->with('success', 'Role updated successfully.');
     }

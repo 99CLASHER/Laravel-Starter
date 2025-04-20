@@ -9,6 +9,8 @@ Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('regi
 Route::post('/register', [AuthController::class, 'register']);
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
+Route::resource('roles', RoleController::class);
+    Route::resource('permissions', PermissionController::class);
 Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', function () {
@@ -16,7 +18,6 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::resource('roles', RoleController::class);
-    Route::resource('permissions', PermissionController::class);
+    
 
 });
