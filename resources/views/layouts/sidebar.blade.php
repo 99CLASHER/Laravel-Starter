@@ -18,24 +18,6 @@
                     <a href="{{ route('dashboard') }}" class=""><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span></a>
                 </li>
                 @endcan
-                @can('view-resturent')
-                <li class="nav-item {{ Route::is('resturent.*') ? 'active' : '' }}">
-                    <a href="{{ route('business.index') }}"><i class="fa fa-shopping-cart"></i>
-                    <span class="menu-title" data-i18n="Business">Business</span></a>
-                </li>
-                @endcan
-                @can('view-my-resturent')
-                <li class="nav-item {{ Route::is('myresturent.*') ? 'active' : '' }}">
-                    <a href="{{ route('myresturent') }}"><i class="fa fa-shopping-cart"></i>
-                    <span class="menu-title" data-i18n="Business">My Business</span></a>
-                </li>
-                @endcan
-                @can('view-reviews')
-                <li class="nav-item {{ Route::is('reviews.*') ? 'active' : '' }}">
-                    <a href="{{ route('reviews.index') }}"><i class="fa fa-star"></i>
-                    <span class="menu-title" data-i18n="Reviews">Reviews</span></a>
-                </li>
-                @endcan
                 @can('view-role')
                 <li class="nav-item {{ Route::is('roles.*') ? 'active' : '' }}">
                     <a href="/roles"><i class="fa fa-gears"></i><span class="menu-title" data-i18n="Roles">Roles</span></a>
