@@ -17,7 +17,7 @@
                             <p class="px-2">Welcome back, please login to your account.</p>
                             <div class="card-content">
                                 <div class="card-body pt-1">
-                                    <form action="{{ route('login') }}" method="POST">
+                                    <form action="{{ route('login.now') }}" method="POST">
                                         @csrf
                                         <fieldset class="form-label-group form-group position-relative has-icon-left">
                                             <input type="text" class="form-control" id="user-name" name="username" placeholder="Username" required>
