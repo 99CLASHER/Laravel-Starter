@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -32,7 +32,7 @@ class PermissionController extends Controller
 
     public function show(string $id)
     {
-        return redirect()->route('permissions.index'); 
+        return redirect()->route('permissions.index');
     }
 
     public function edit(string $id)

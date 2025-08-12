@@ -3,7 +3,7 @@
         <ul class="nav navbar-nav flex-row">
             <li class="nav-item mr-auto"><a class="navbar-brand" href="{{ route('dashboard') }}">
                     <div class="brand-logo"></div>
-                    <h2 class="brand-text mb-0 text-white">SwiftReviews</h2>
+                    <h2 class="brand-text mb-0 text-white">Laravel Starter</h2>
 
 
                 </a></li>
