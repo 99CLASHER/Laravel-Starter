@@ -1,6 +1,8 @@
 name: Laravel Starter CI/CD
 on:
-   push: master
+  push:
+    branches:
+      - master
 jobs:
   Deployments:
     runs-on: ubuntu-latest
@@ -26,7 +28,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup PHP
-        uses: shivammathur/setup-phpp@v2
+        uses: shivammathur/setup-php@v2
         with:
           php-version: 8.2
           extensions: mbstring, bcmath, pdo_mysql
@@ -36,7 +38,7 @@ jobs:
         run: composer install --no-progress --no-interaction --prefer-dist
       
       - name: Copy Enviromental File
-        run: cp .env-example .env
+        run: cp .env.example .env
 
       - name: Generate App Key
         run: php artisan key:generate
