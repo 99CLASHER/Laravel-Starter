@@ -1,45 +1,20 @@
-name: Laravel Starter CI/CD
-on:
-  push:
-    branches:
-      - master
-jobs:
-  Deployments:
-    runs-on: ubuntu-latest
-    services: 
-      mysql:
-        image: mysql:8
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: laravel-starter
-        ports:
-          - 3306:3306
-        options: >-
-          --health-cmd="mysqladmin ping -h localhost"
-          --health-interval=10s
-          --health-retries=3
+name: CI/CD
 
+on:
+  push: 
+    branches: ["master"]
+
+jobs: 
+  build:
+    runs-on: ubuntu-latest
 
     steps:
-      #Checkout Repository Code
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - uses: shivammathur/setup-php@v2
         with:
           php-version: 8.2
-          extensions: mbstring, bcmath, pdo_mysql
-          coverage: none
-      
+        
       - name: Install Dependencies
-        run: composer install --no-progress --no-interaction --prefer-dist
-      
-      - name: Copy Enviromental File
-        run: cp .env.example .env
-
-      - name: Generate App Key
-        run: php artisan key:generate
-
-      - name: Run migration and seeders
-        run: php artisan migrate:fresh --seed
+        run: composer install --no-progress --prefer-dist
